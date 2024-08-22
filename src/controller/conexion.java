@@ -1,17 +1,42 @@
 
 package controller;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class conexion {
+    private static Connection conn;
+   
+    public conexion(){
+
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String userdb = "root";
+        String passdb = "Admin0101";
+        String url = "jdbc:mysql://localhost:3306/comidas";
+
+        try{
+            Class.forName(driver);
+            
+            conn = DriverManager.getConnection(url, userdb, passdb);
+            if(conn != null){
+                System.out.println("Conexión establecida exitosamente***********");
+            }
+            // Connect?
+        }catch (ClassNotFoundException | SQLException ex){
+            System.out.println("Conexión Fallida:\n\n"+ex);
+        }
+    }
+    
+    public Connection getConnection(){
+        return conn;
+    }
+    /*
     private static Connection con;
     private static final String driver="com.mysql.jdbc.Driver";
     private static final String user="root";
     private static final String pass="";
     private static final String url="jdbc:mysql://localhost:3306/test";
-    // en su caso deben poner en URL, localhost o la ip
-    //del servidor 
 
     public void conection(String Nombre,String tipo) {
         con=null;
@@ -25,5 +50,5 @@ public class conexion {
         catch (ClassNotFoundException | SQLException e){
             System.out.println("Error de conexion" + e);
         }   
-    }
+    }*/
 }
